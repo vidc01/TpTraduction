@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Traducteur FR ⇄ EN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Traducteur Français ⇄ Anglais</h1>
+
+<form action="" method="post">
+
+    <label>Traduction :</label><br>
+    <select name="sens" onchange="this.form.submit()">
+        <option value="versAnglais" <?php if ($sens === 'versAnglais') echo 'selected'; ?>>Français → Anglais</option>
+        <option value="versFrancais" <?php if ($sens === 'versFrancais') echo 'selected'; ?>>Anglais → Français</option>
+    </select>
+
+    <br><br>
+
+    <label>Choisir un mot :</label><br>
+    <select name="mot">
+        <?php foreach (obtenirDictionnaire() as $fr => $en) : ?>
+            <?php if ($sens === "versAnglais") : ?>
+                <option value="<?php echo $fr; ?>" <?php if ($mot === $fr) echo "selected"; ?>>
+                    <?php echo $fr; ?>
+                </option>
+            <?php else : ?>
+                <option value="<?php echo $en; ?>" <?php if ($mot === $en) echo "selected"; ?>>
+                    <?php echo $en; ?>
+                </option>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </select>
+
+    <br><br>
+
+    <button type="submit">Traduire</button>
+</form>
+
+<hr>
+
+<?php if ($_SERVER["REQUEST_METHOD"] === "POST") : ?>
+    <?php if ($resultat !== null) : ?>
+        <p><strong>Traduction :</strong> <?php echo htmlspecialchars($resultat); ?></p>
+    <?php else : ?>
+        <p style="color:red;">Mot inconnu.</p>
+    <?php endif; ?>
+<?php endif; ?>
+
+</body>
+</html>
