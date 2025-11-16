@@ -1,7 +1,7 @@
 <?php
 
 
-require_once DIR . "/dictionnaire.php";
+require_once __DIR__ . "/dictionnaire.php";
 
 
 function obtenirDictionnaire() {
